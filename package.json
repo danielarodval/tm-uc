@@ -2,10 +2,13 @@
   "name": "tm-uc-site",
   "private": true,
   "scripts": {
+    "build": "npm run build:css && npm run build:icons",
     "build:css": "tailwindcss -c tailwind.config.js -i ./src/styles.css -o ./assets/styles.css --minify",
+    "build:icons": "node ./scripts/build-icons.mjs",
     "watch:css": "tailwindcss -c tailwind.config.js -i ./src/styles.css -o ./assets/styles.css --watch"
   },
   "devDependencies": {
+    "@fortawesome/free-solid-svg-icons": "6.7.2",
     "tailwindcss": "3.4.17"
   }
 }

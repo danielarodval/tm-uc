@@ -2,13 +2,13 @@
 
 Static marketing site intended for GitHub Pages.
 
-## Stylesheet build
+## Asset build
 
-The production Tailwind stylesheet is compiled and committed at `assets/styles.css`.
+The production Tailwind stylesheet and reduced local icon set are compiled and committed under `assets/`.
 
 ```sh
 npm install
-npm run build:css
+npm run build
 ```
 
-Use `npm run watch:css` while editing HTML or `src/styles.css`, then rebuild before committing.
+Use `npm run watch:css` while editing HTML or `src/styles.css`, then run `npm run build` before committing. The icon build scans `index.html` and includes only the Font Awesome icons referenced by the page.
