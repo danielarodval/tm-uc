@@ -20,3 +20,8 @@ Gemfile.lock
 # Node dependencies used to compile the production stylesheet
 node_modules/
 npm-debug.log*
+
+# Local planning/reference material and macOS metadata are not deployed
+ref/
+.DS_Store
+**/.DS_Store

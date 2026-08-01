@@ -12,3 +12,7 @@ npm run build
 ```
 
 Use `npm run watch:css` while editing HTML, `assets/app.js`, or `src/styles.css`, then run `npm run build` before committing. The icon build scans `index.html` and `assets/app.js` and includes only the Font Awesome icons referenced by the page.
+
+## Local-only files
+
+The `ref/` directory contains local planning and evidence notes and is intentionally excluded from Git and GitHub Pages. macOS `.DS_Store` metadata is also ignored. Neither should be committed or deployed.
