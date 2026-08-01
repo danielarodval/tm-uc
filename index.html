@@ -524,6 +524,11 @@
                         </div>
                     </div>
 
+                    <p id="formPrivacyNotice" class="text-xs leading-relaxed text-slate-400">
+                        By submitting this form, you agree that T&amp;M Underground may use the information provided to review your project and contact you about this request. Form submissions are processed by FormSubmit and delivered to our team by email. See our
+                        <a href="privacy.html" class="font-semibold text-brand-gold underline underline-offset-2 hover:text-amber-300">Privacy Notice</a>.
+                    </p>
+
                     <button type="submit" id="submitBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-gold to-brand-amber text-slate-950 font-bold text-sm tracking-wider uppercase hover:brightness-110 transition shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2">
                         <i class="fa-solid fa-paper-plane"></i>
                         <span id="btnText">Submit Project Details & Request Follow-Up</span>
@@ -743,7 +748,7 @@
             <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 text-[11px]">
                 <div>&copy; <span id="yearSpan"></span> T&M Underground. All rights reserved.</div>
                 <div class="flex gap-6">
-                    <a href="#" class="hover:text-slate-400">Subcontractor Terms</a>
+                    <a href="privacy.html" class="hover:text-slate-400">Privacy Notice</a>
                     <a href="#" class="hover:text-slate-400">Safety Policy</a>
                     <a href="#" class="hover:text-slate-400">811 Dig Protocol</a>
                 </div>
@@ -877,11 +882,21 @@
                     },
                     body: JSON.stringify(formData)
                 });
+                const result = await response.json().catch(() => ({}));
+                const submissionAccepted = response.ok && (result.success === true || result.success === "true");
 
-                if (response.ok) {
+                if (submissionAccepted) {
                     showToast(`Project Request Sent!`, `Thanks ${name}, our team will contact you shortly.`);
                     form.reset();
                     updateDistanceDisplay();
+                } else if (response.ok) {
+                    console.warn("FormSubmit did not accept the project request:", result.message || "Unknown response");
+                    showToast(
+                        "Request Not Sent",
+                        "Email delivery is not active yet. Please call (904) 844-3438 for assistance.",
+                        "fa-triangle-exclamation",
+                        "text-red-400"
+                    );
                 } else {
                     // Fallback to native submission if AJAX fails
                     form.submit();
