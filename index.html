@@ -439,12 +439,12 @@
 
             <div class="glass-panel p-6 sm:p-10 rounded-2xl border border-slate-700 shadow-2xl relative">
                 <!-- Direct action fallback for FormSubmit -->
-                <form id="estimatorForm" action="https://formsubmit.co/antonio.aboytes@tm-uc.com" method="POST" onsubmit="handleEstimatorSubmit(event)" class="space-y-8">
+                <form id="estimatorForm" action="https://formsubmit.co/antonio.aboytes@tm-uc.com" method="POST" accept-charset="UTF-8" onsubmit="handleEstimatorSubmit(event)" class="space-y-8">
                     
                     <!-- Hidden FormSubmit Configuration -->
                     <input type="hidden" name="_subject" value="NEW PROJECT REQUEST - T&M Underground">
-                    <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" id="hiddenReplyTo" name="_replyto" value="">
+                    <input type="text" id="formWebsite" name="_honey" value="" tabindex="-1" autocomplete="off" aria-hidden="true" style="display: none;">
 
                     <!-- Step 1: Project Type -->
                     <div>
@@ -511,21 +511,21 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             <div>
                                 <label for="custName" class="block text-xs font-medium text-slate-300 mb-2">Name / Company Name</label>
-                                <input type="text" id="custName" name="Name" autocomplete="name" placeholder="Your name or company *" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:border-brand-gold focus:outline-none">
+                                <input type="text" id="custName" name="Name" autocomplete="name" maxlength="120" placeholder="Your name or company *" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:border-brand-gold focus:outline-none">
                             </div>
                             <div>
                                 <label for="custPhone" class="block text-xs font-medium text-slate-300 mb-2">Phone Number</label>
-                                <input type="tel" id="custPhone" name="Phone" autocomplete="tel" placeholder="Best callback number *" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:border-brand-gold focus:outline-none">
+                                <input type="tel" id="custPhone" name="Phone" autocomplete="tel" inputmode="tel" maxlength="30" placeholder="Best callback number *" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:border-brand-gold focus:outline-none">
                             </div>
                             <div class="sm:col-span-2 lg:col-span-1">
                                 <label for="custEmail" class="block text-xs font-medium text-slate-300 mb-2">Email Address</label>
-                                <input type="email" id="custEmail" name="Email" autocomplete="email" placeholder="Email address *" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:border-brand-gold focus:outline-none">
+                                <input type="email" id="custEmail" name="Email" autocomplete="email" maxlength="254" placeholder="Email address *" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:border-brand-gold focus:outline-none">
                             </div>
                         </div>
                     </div>
 
                     <p id="formPrivacyNotice" class="text-xs leading-relaxed text-slate-400">
-                        By submitting this form, you agree that T&amp;M Underground may use the information provided to review your project and contact you about this request. Form submissions are processed by FormSubmit and delivered to our team by email. See our
+                        By submitting this form, you agree that T&amp;M Underground may use the information provided to review your project and contact you about this request. Form submissions and anti-spam checks are processed by FormSubmit and delivered to our team by email. See our
                         <a href="privacy.html" class="font-semibold text-brand-gold underline underline-offset-2 hover:text-amber-300">Privacy Notice</a>.
                     </p>
 
@@ -843,9 +843,10 @@
             submitBtn.disabled = true;
             btnText.textContent = "Sending Project Details...";
 
-            const name = document.getElementById('custName').value;
-            const phone = document.getElementById('custPhone').value;
-            const email = document.getElementById('custEmail').value;
+            const name = document.getElementById('custName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const email = document.getElementById('custEmail').value.trim();
+            const honey = document.getElementById('formWebsite').value;
             const dist = document.getElementById('distRange').value + " Feet";
             const sectorElem = document.querySelector('input[name="Sector"]:checked');
             const sector = sectorElem ? sectorElem.value : 'Residential';
@@ -854,16 +855,17 @@
             document.getElementById('hiddenReplyTo').value = email;
 
             // Prepare JSON payload for FormSubmit AJAX API
+            const safeSubjectName = name.replace(/[\r\n]+/g, ' ').slice(0, 80);
             const formData = {
-                _subject: `NEW PROJECT REQUEST: ${name}`,
+                _subject: `NEW PROJECT REQUEST: ${safeSubjectName}`,
                 _replyto: email,
+                _honey: honey,
                 Name: name,
                 Phone: phone,
                 Email: email,
                 Sector: sector,
                 "Bore Distance": dist,
-                "Conduit Size": conduitSize,
-                _captcha: "false"
+                "Conduit Size": conduitSize
             };
 
             // Check if running directly from local file system (file:// scheme)
@@ -893,7 +895,7 @@
                     console.warn("FormSubmit did not accept the project request:", result.message || "Unknown response");
                     showToast(
                         "Request Not Sent",
-                        "Email delivery is not active yet. Please call (904) 844-3438 for assistance.",
+                        "Please complete any verification requested and try again, or call (904) 844-3438 for assistance.",
                         "fa-triangle-exclamation",
                         "text-red-400"
                     );
@@ -913,13 +915,22 @@
         function showToast(title, message, icon = 'fa-circle-check', iconColor = 'text-emerald-400') {
             const toast = document.createElement('div');
             toast.className = 'fixed bottom-6 right-6 z-50 bg-slate-900 border border-brand-gold text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 animate-bounce max-w-sm';
-            toast.innerHTML = `
-                <i class="fa-solid ${icon} ${iconColor} text-xl"></i>
-                <div>
-                    <div class="font-bold text-sm">${title}</div>
-                    <div class="text-xs text-slate-300">${message}</div>
-                </div>
-            `;
+
+            const toastIcon = document.createElement('i');
+            toastIcon.className = `fa-solid ${icon} ${iconColor} text-xl`;
+            toastIcon.setAttribute('aria-hidden', 'true');
+
+            const toastContent = document.createElement('div');
+            const toastTitle = document.createElement('div');
+            toastTitle.className = 'font-bold text-sm';
+            toastTitle.textContent = title;
+
+            const toastMessage = document.createElement('div');
+            toastMessage.className = 'text-xs text-slate-300';
+            toastMessage.textContent = message;
+
+            toastContent.append(toastTitle, toastMessage);
+            toast.append(toastIcon, toastContent);
             document.body.appendChild(toast);
 
             setTimeout(() => {
