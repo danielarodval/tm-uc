@@ -6,9 +6,12 @@ import {
   faShield,
 } from '@fortawesome/free-solid-svg-icons';
 
-const sourcePath = new URL('../index.html', import.meta.url);
+const sourcePaths = [
+  new URL('../index.html', import.meta.url),
+  new URL('../assets/app.js', import.meta.url),
+];
 const outputPath = new URL('../assets/icons.css', import.meta.url);
-const source = await readFile(sourcePath, 'utf8');
+const source = (await Promise.all(sourcePaths.map((path) => readFile(path, 'utf8')))).join('\n');
 
 const referencedIcons = [...new Set(
   [...source.matchAll(/\bfa-([a-z0-9-]+)\b/g)]

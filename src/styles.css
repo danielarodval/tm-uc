@@ -34,6 +34,24 @@
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.08);
   }
+
+  #boringMole[data-position='5'] { left: 5%; }
+  #boringMole[data-position='10'] { left: 10%; }
+  #boringMole[data-position='15'] { left: 15%; }
+  #boringMole[data-position='20'] { left: 20%; }
+  #boringMole[data-position='25'] { left: 25%; }
+  #boringMole[data-position='30'] { left: 30%; }
+  #boringMole[data-position='35'] { left: 35%; }
+  #boringMole[data-position='40'] { left: 40%; }
+  #boringMole[data-position='45'] { left: 45%; }
+  #boringMole[data-position='50'] { left: 50%; }
+  #boringMole[data-position='55'] { left: 55%; }
+  #boringMole[data-position='60'] { left: 60%; }
+  #boringMole[data-position='65'] { left: 65%; }
+  #boringMole[data-position='70'] { left: 70%; }
+  #boringMole[data-position='75'] { left: 75%; }
+  #boringMole[data-position='80'] { left: 80%; }
+  #boringMole[data-position='85'] { left: 85%; }
 }
 
 @layer utilities {

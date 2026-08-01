@@ -11,4 +11,4 @@ npm install
 npm run build
 ```
 
-Use `npm run watch:css` while editing HTML or `src/styles.css`, then run `npm run build` before committing. The icon build scans `index.html` and includes only the Font Awesome icons referenced by the page.
+Use `npm run watch:css` while editing HTML, `assets/app.js`, or `src/styles.css`, then run `npm run build` before committing. The icon build scans `index.html` and `assets/app.js` and includes only the Font Awesome icons referenced by the page.
