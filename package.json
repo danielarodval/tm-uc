@@ -1,0 +1,11 @@
+{
+  "name": "tm-uc-site",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -c tailwind.config.js -i ./src/styles.css -o ./assets/styles.css --minify",
+    "watch:css": "tailwindcss -c tailwind.config.js -i ./src/styles.css -o ./assets/styles.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  }
+}
