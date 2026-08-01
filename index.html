@@ -98,7 +98,7 @@
             <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium">
                 <a href="#services" class="hover:text-brand-gold transition-colors whitespace-nowrap">Services</a>
                 <a href="#visualizer" class="hover:text-brand-gold transition-colors whitespace-nowrap">Boring vs Trenching</a>
-                <a href="#estimator" class="hover:text-brand-gold transition-colors whitespace-nowrap">Instant Estimator</a>
+                <a href="#estimator" class="hover:text-brand-gold transition-colors whitespace-nowrap">Project Request</a>
                 <a href="#capabilities" class="hover:text-brand-gold transition-colors whitespace-nowrap">Fleet & Tech</a>
                 <a href="#projects" class="hover:text-brand-gold transition-colors whitespace-nowrap">Projects</a>
                 <a href="#subcontracting" class="text-brand-blue hover:underline flex items-center gap-1 whitespace-nowrap">
@@ -113,8 +113,8 @@
                     <span>(904) 844-3438</span>
                 </a>
                 <a href="#estimator" class="px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-lg bg-gradient-to-r from-brand-gold to-brand-amber text-slate-950 hover:brightness-110 transition shadow-lg shadow-amber-500/20 flex items-center gap-2">
-                    <i class="fa-solid fa-calculator"></i>
-                    <span>Request Bid</span>
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    <span>Project Request</span>
                 </a>
             </div>
 
@@ -128,7 +128,7 @@
         <div id="mobileMenu" class="hidden lg:hidden bg-slate-900/95 border-b border-slate-800 px-6 py-4 flex flex-col gap-4 text-sm font-medium">
             <a href="#services" class="py-2 border-b border-slate-800 hover:text-brand-gold">Services</a>
             <a href="#visualizer" class="py-2 border-b border-slate-800 hover:text-brand-gold">Boring Visualizer</a>
-            <a href="#estimator" class="py-2 border-b border-slate-800 hover:text-brand-gold">Instant Estimator</a>
+            <a href="#estimator" class="py-2 border-b border-slate-800 hover:text-brand-gold">Project Request</a>
             <a href="#capabilities" class="py-2 border-b border-slate-800 hover:text-brand-gold">Fleet & Equipment</a>
             <a href="#projects" class="py-2 border-b border-slate-800 hover:text-brand-gold">Recent Projects</a>
             <a href="#subcontracting" class="py-2 text-brand-blue">Subcontracting & Primes</a>
@@ -137,7 +137,7 @@
                     <i class="fa-solid fa-phone text-brand-gold"></i>
                     <span>(904) 844-3438</span>
                 </a>
-                <a href="#estimator" class="w-full py-3 text-center font-bold bg-brand-gold text-slate-950 rounded-lg">Get a Project Quote</a>
+                <a href="#estimator" class="w-full py-3 text-center font-bold bg-brand-gold text-slate-950 rounded-lg">Submit Project Details</a>
             </div>
         </div>
     </header>
@@ -428,13 +428,13 @@
         </div>
     </section>
 
-    <!-- Interactive Project Estimator Section -->
+    <!-- Project Request Section -->
     <section id="estimator" class="py-24 bg-slate-900/80 border-t border-slate-800 relative">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <span class="px-3 py-1 rounded-full bg-brand-gold/10 text-brand-gold text-xs font-bold border border-brand-gold/20 uppercase tracking-wider">Instant Quote Calculator</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Project & Subcontracting Estimator</h2>
-                <p class="text-slate-400 text-sm mt-2">Get an immediate budget and crew mobilization estimate for your job.</p>
+                <span class="px-3 py-1 rounded-full bg-brand-gold/10 text-brand-gold text-xs font-bold border border-brand-gold/20 uppercase tracking-wider">Project Information Request</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Tell Us About Your Project</h2>
+                <p class="text-slate-400 text-sm mt-2">Share the core job details our team needs to review the work and follow up with you.</p>
             </div>
 
             <div class="glass-panel p-6 sm:p-10 rounded-2xl border border-slate-700 shadow-2xl relative">
@@ -442,17 +442,16 @@
                 <form id="estimatorForm" action="https://formsubmit.co/antonio.aboytes@tm-uc.com" method="POST" onsubmit="handleEstimatorSubmit(event)" class="space-y-8">
                     
                     <!-- Hidden FormSubmit Configuration -->
-                    <input type="hidden" name="_subject" value="NEW DRILLING BID REQUEST - T&M Underground">
+                    <input type="hidden" name="_subject" value="NEW PROJECT REQUEST - T&M Underground">
                     <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" id="hiddenTimeline" name="Estimated Timeline" value="">
-                    <input type="hidden" id="hiddenPrice" name="Estimated Price" value="">
+                    <input type="hidden" id="hiddenReplyTo" name="_replyto" value="">
 
                     <!-- Step 1: Project Type -->
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">1. Select Project Sector</label>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <label class="cursor-pointer">
-                                <input type="radio" name="Sector" value="Residential" class="peer hidden" checked onchange="calculateEstimate()">
+                                <input type="radio" name="Sector" value="Residential" class="peer hidden" checked>
                                 <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 peer-checked:border-brand-gold peer-checked:bg-amber-500/10 text-center transition">
                                     <i class="fa-solid fa-house text-xl text-brand-gold mb-2"></i>
                                     <div class="text-sm font-bold text-white">Residential Drop</div>
@@ -461,7 +460,7 @@
                             </label>
 
                             <label class="cursor-pointer">
-                                <input type="radio" name="Sector" value="Commercial" class="peer hidden" onchange="calculateEstimate()">
+                                <input type="radio" name="Sector" value="Commercial" class="peer hidden">
                                 <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 peer-checked:border-brand-gold peer-checked:bg-amber-500/10 text-center transition">
                                     <i class="fa-solid fa-building text-xl text-sky-400 mb-2"></i>
                                     <div class="text-sm font-bold text-white">Commercial / HDD</div>
@@ -470,7 +469,7 @@
                             </label>
 
                             <label class="cursor-pointer">
-                                <input type="radio" name="Sector" value="Subdivision" class="peer hidden" onchange="calculateEstimate()">
+                                <input type="radio" name="Sector" value="Subdivision" class="peer hidden">
                                 <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 peer-checked:border-brand-gold peer-checked:bg-amber-500/10 text-center transition">
                                     <i class="fa-solid fa-trowel-bricks text-xl text-emerald-400 mb-2"></i>
                                     <div class="text-sm font-bold text-white">New Home Community</div>
@@ -484,10 +483,10 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
                             <div class="flex justify-between text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                                <span>2. Total Bore Distance</span>
+                                <label for="distRange">2. Total Bore Distance</label>
                                 <span id="distVal" class="text-brand-gold font-mono text-sm">60 Feet</span>
                             </div>
-                            <input type="range" id="distRange" name="Bore Distance" min="20" max="500" step="10" value="60" class="w-full accent-amber-500 cursor-pointer" oninput="calculateEstimate()">
+                            <input type="range" id="distRange" name="Bore Distance" min="20" max="500" step="10" value="60" class="w-full accent-amber-500 cursor-pointer" oninput="updateDistanceDisplay()">
                             <div class="flex justify-between text-[10px] font-mono text-slate-500 mt-1">
                                 <span>20 ft (Short Shot)</span>
                                 <span>250 ft</span>
@@ -496,8 +495,8 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">3. Conduit / Pipe Size</label>
-                            <select id="conduitSize" name="Conduit Size" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:border-brand-gold focus:outline-none" onchange="calculateEstimate()">
+                            <label for="conduitSize" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">3. Conduit / Pipe Size</label>
+                            <select id="conduitSize" name="Conduit Size" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:border-brand-gold focus:outline-none">
                                 <option value="1">1" HDPE / PVC Conduit (Fiber, Gas, Elec)</option>
                                 <option value="1.25">1.25" HDPE / Schedule 40 Conduit</option>
                                 <option value="1.5">1.5" HDPE / Rigid Conduit</option>
@@ -506,29 +505,28 @@
                         </div>
                     </div>
 
-                    <!-- Step 3: Estimated Calculation Display Box -->
-                    <div class="bg-slate-950 p-6 rounded-xl border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6">
-                        <div>
-                            <div class="text-xs font-mono text-slate-400 uppercase">Estimated Turnaround & Crew Mobilization</div>
-                            <div id="estTimeline" class="text-lg font-bold text-white mt-1">Estimated Completion: Same-Day (3-5 Hours)</div>
-                            <p class="text-xs text-slate-400 mt-1">Includes locate verification, setup, bore execution, and pipe pull.</p>
+                    <!-- Step 4: Contact details -->
+                    <div>
+                        <div class="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">4. Contact Information</div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div>
+                                <label for="custName" class="block text-xs font-medium text-slate-300 mb-2">Name / Company Name</label>
+                                <input type="text" id="custName" name="Name" autocomplete="name" placeholder="Your name or company *" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:border-brand-gold focus:outline-none">
+                            </div>
+                            <div>
+                                <label for="custPhone" class="block text-xs font-medium text-slate-300 mb-2">Phone Number</label>
+                                <input type="tel" id="custPhone" name="Phone" autocomplete="tel" placeholder="Best callback number *" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:border-brand-gold focus:outline-none">
+                            </div>
+                            <div class="sm:col-span-2 lg:col-span-1">
+                                <label for="custEmail" class="block text-xs font-medium text-slate-300 mb-2">Email Address</label>
+                                <input type="email" id="custEmail" name="Email" autocomplete="email" placeholder="Email address *" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:border-brand-gold focus:outline-none">
+                            </div>
                         </div>
-                        <div class="text-right w-full md:w-auto flex flex-col items-end">
-                            <div class="text-xs font-mono text-slate-400 uppercase">Estimated Budget Range</div>
-                            <div id="estPrice" class="text-2xl sm:text-3xl font-black text-brand-gold mt-1">$1,200 - $1,800</div>
-                            <div class="text-[10px] text-emerald-400 font-mono mt-0.5">Includes T&M Quality Guarantee</div>
-                        </div>
-                    </div>
-
-                    <!-- Step 4: Contact details to lock bid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                        <input type="text" id="custName" name="Name" placeholder="Your Name / Company Name *" required class="bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:border-brand-gold focus:outline-none">
-                        <input type="tel" id="custPhone" name="Phone" placeholder="Phone Number *" required class="bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:border-brand-gold focus:outline-none">
                     </div>
 
                     <button type="submit" id="submitBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-gold to-brand-amber text-slate-950 font-bold text-sm tracking-wider uppercase hover:brightness-110 transition shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2">
                         <i class="fa-solid fa-paper-plane"></i>
-                        <span id="btnText">Lock In Estimate & Request On-Site Survey</span>
+                        <span id="btnText">Submit Project Details & Request Follow-Up</span>
                     </button>
                 </form>
             </div>
@@ -824,38 +822,11 @@
             });
         }
 
-        function calculateEstimate() {
+        function updateDistanceDisplay() {
             const distRange = document.getElementById('distRange');
             if (!distRange) return;
             const dist = parseInt(distRange.value);
             document.getElementById('distVal').textContent = dist + ' Feet';
-
-            const sectorElem = document.querySelector('input[name="Sector"]:checked');
-            const sector = sectorElem ? sectorElem.value : 'Residential';
-
-            let costPerFoot = 16;
-            if (sector === 'Commercial') costPerFoot = 22;
-            if (sector === 'Subdivision') costPerFoot = 14;
-
-            const baseCost = dist * costPerFoot;
-            const minCost = Math.round(baseCost * 0.9);
-            const maxCost = Math.round(baseCost * 1.25);
-
-            const priceText = '$' + minCost.toLocaleString() + ' - $' + maxCost.toLocaleString();
-            document.getElementById('estPrice').textContent = priceText;
-            document.getElementById('hiddenPrice').value = priceText;
-
-            const estTimeline = document.getElementById('estTimeline');
-            let timeText = "Estimated Completion: Same-Day (2 - 4 Hours)";
-            if (dist <= 80) {
-                timeText = "Estimated Completion: Same-Day (2 - 4 Hours)";
-            } else if (dist <= 200) {
-                timeText = "Estimated Completion: Same-Day (4 - 7 Hours)";
-            } else {
-                timeText = "Estimated Completion: 1 to 2 Working Days";
-            }
-            if (estTimeline) estTimeline.textContent = timeText;
-            document.getElementById('hiddenTimeline').value = timeText;
         }
 
         async function handleEstimatorSubmit(e) {
@@ -865,28 +836,28 @@
             const btnText = document.getElementById('btnText');
             
             submitBtn.disabled = true;
-            btnText.textContent = "Sending Bid Request...";
+            btnText.textContent = "Sending Project Details...";
 
             const name = document.getElementById('custName').value;
             const phone = document.getElementById('custPhone').value;
+            const email = document.getElementById('custEmail').value;
             const dist = document.getElementById('distRange').value + " Feet";
             const sectorElem = document.querySelector('input[name="Sector"]:checked');
             const sector = sectorElem ? sectorElem.value : 'Residential';
             const conduitSelect = document.getElementById('conduitSize');
             const conduitSize = conduitSelect.options[conduitSelect.selectedIndex].text;
-            const price = document.getElementById('estPrice').textContent;
-            const timeline = document.getElementById('hiddenTimeline').value;
+            document.getElementById('hiddenReplyTo').value = email;
 
             // Prepare JSON payload for FormSubmit AJAX API
             const formData = {
-                _subject: `NEW DRILLING BID REQUEST: ${name}`,
+                _subject: `NEW PROJECT REQUEST: ${name}`,
+                _replyto: email,
                 Name: name,
                 Phone: phone,
+                Email: email,
                 Sector: sector,
                 "Bore Distance": dist,
                 "Conduit Size": conduitSize,
-                "Estimated Price": price,
-                "Estimated Timeline": timeline,
                 _captcha: "false"
             };
 
@@ -908,9 +879,9 @@
                 });
 
                 if (response.ok) {
-                    showToast(`Estimate Request Sent!`, `Thanks ${name}, our field team will call ${phone} shortly.`);
+                    showToast(`Project Request Sent!`, `Thanks ${name}, our team will contact you shortly.`);
                     form.reset();
-                    calculateEstimate();
+                    updateDistanceDisplay();
                 } else {
                     // Fallback to native submission if AJAX fails
                     form.submit();
@@ -920,7 +891,7 @@
                 form.submit();
             } finally {
                 submitBtn.disabled = false;
-                btnText.textContent = "Lock In Estimate & Request On-Site Survey";
+                btnText.textContent = "Submit Project Details & Request Follow-Up";
             }
         }
 
@@ -941,7 +912,7 @@
             }, 6000);
         }
 
-        calculateEstimate();
+        updateDistanceDisplay();
     </script>
 </body>
 </html>
